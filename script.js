@@ -98,6 +98,7 @@ async function criarProduto() {
 const botaoEsvaziar = document.querySelector('.empty-cart');
 botaoEsvaziar.addEventListener('click', function () {
   cartItems.innerHTML = '';
+  localStorage.clear();
 });
 
 window.onload = () => {
