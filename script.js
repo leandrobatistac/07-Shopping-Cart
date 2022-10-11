@@ -38,6 +38,7 @@ const createCustomElement = (element, className, innerText) => {
  * @returns {Element} Elemento de produto.
  */
 
+ const cartItems = document.querySelector('.cart__items');
 /**
  * Função responsável por criar e retornar um item do carrinho.
  * @param {Object} product - Objeto do produto.
@@ -53,6 +54,7 @@ const createCustomElement = (element, className, innerText) => {
   li.addEventListener('click', (e) => {
     const elementSelect = e.target;
     elementSelect.remove();
+    saveCartItems(cartItems.innerHTML);
   });
   return li;
 };
@@ -70,6 +72,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
    const carrinho = document.querySelector('.cart__items');
    const data = (await fetchItem(id));
    carrinho.appendChild(createCartItemElement(data));
+   saveCartItems(cartItems.innerHTML);
   });
 
   return section;
@@ -93,4 +96,7 @@ async function criarProduto() {
 
 window.onload = () => {
   criarProduto();
+  if (localStorage.cartItem) {
+    cartItems.innerHTML = getSavedCartItems();
+  }
  };
