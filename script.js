@@ -50,7 +50,10 @@ const createCustomElement = (element, className, innerText) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  // li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', (e) => {
+    const elementSelect = e.target;
+    elementSelect.remove();
+  });
   return li;
 };
 
