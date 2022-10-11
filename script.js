@@ -72,4 +72,15 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-window.onload = () => { };
+// Requisito 2
+async function criarProduto() {
+  const data = await fetchProducts('computador');
+  await data.results.forEach(({ id, title, thumbnail }) => {
+    document.querySelector('.items')
+    .appendChild(createProductItemElement({ id, title, thumbnail }));
+  });
+}
+
+window.onload = () => {
+  criarProduto();
+ };
