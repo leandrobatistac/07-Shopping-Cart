@@ -98,5 +98,14 @@ window.onload = () => {
   criarProduto();
   if (localStorage.cartItem) {
     cartItems.innerHTML = getSavedCartItems();
+
+    const itensCarrinho = document.querySelectorAll('.cart__item');
+    itensCarrinho.forEach((e) => {
+        e.addEventListener('click', (e2) => {
+        const elementSelect = e2.target;
+        elementSelect.remove();
+        saveCartItems(cartItems.innerHTML);
+    });
+  });
   }
  };
