@@ -94,18 +94,25 @@ async function criarProduto() {
   });
 }
 
+// Requisito 10
+const botaoEsvaziar = document.querySelector('.empty-cart');
+botaoEsvaziar.addEventListener('click', function () {
+  cartItems.innerHTML = '';
+});
+
 window.onload = () => {
   criarProduto();
+
   if (localStorage.cartItem) {
     cartItems.innerHTML = getSavedCartItems();
 
     const itensCarrinho = document.querySelectorAll('.cart__item');
     itensCarrinho.forEach((e) => {
         e.addEventListener('click', (e2) => {
-        const elementSelect = e2.target;
-        elementSelect.remove();
-        saveCartItems(cartItems.innerHTML);
-    });
-  });
+          const elementSelect = e2.target;
+          elementSelect.remove();
+          saveCartItems(cartItems.innerHTML);
+        });
+      });
   }
- };
+};
