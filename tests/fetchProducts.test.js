@@ -18,7 +18,7 @@ describe('1 - Teste a função fetchProducts', () => {
   });
 
   it('FetchProducts sem argumento, retorna um erro com a mensagem', async () => {
-    await expect(fetchProducts()).rejects.toThrow('You must provide an url');
+    expect(await fetchProducts()).toEqual(new Error('You must provide an url'));
   });
 
   it('Retorno da função é uma estrutura de dados igual ao objeto ', async () => {
