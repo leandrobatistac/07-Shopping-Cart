@@ -86,6 +86,7 @@ async function criarProduto() {
     document.querySelector('.items')
     .appendChild(createProductItemElement({ id, title, thumbnail, price }));
   });
+  document.querySelector('.loading').remove();
 }
 
 // Adiciona o botão de "Esvaziar Carrinho"
@@ -96,8 +97,18 @@ botaoEsvaziar.addEventListener('click', function () {
   atualizaPreco();
 });
 
+// Adiciona o Loading ao fazer a requisição
+function loading() {
+  const loadElement = document.createElement('p');
+  const telaItens = document.querySelector('.items')
+  loadElement.className = 'loading';
+  loadElement.innerText = 'carregando...';
+  telaItens.appendChild(loadElement);
+}
+
 // Atualizar a página
 window.onload = () => {
+  loading();
   criarProduto();
   if (localStorage.cartItem) {
     const carrinhoAtual = getSavedCartItems();
