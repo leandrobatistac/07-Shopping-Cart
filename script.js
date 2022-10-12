@@ -23,7 +23,7 @@ const createCustomElement = (element, className, innerText) => {
   const precoTotalParagrafo = document.querySelector('.total-price');
   const carrinhoAtual = getSavedCartItems();
   if (!carrinhoAtual) {
-    precoTotalParagrafo.innerHTML = '0';
+    precoTotalParagrafo.innerHTML = '';
     return;
   }
   const precoTotal = carrinhoAtual.reduce((prev, cur) => prev + cur.price, 0);
@@ -79,6 +79,15 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   return section;
 };
 
+// Adiciona o Loading ao fazer a requisição
+function loading() {
+  const loadElement = document.createElement('p');
+  const telaItens = document.querySelector('.items');
+  loadElement.className = 'loading';
+  loadElement.innerText = 'carregando...';
+  telaItens.appendChild(loadElement);
+}
+
 // Faz a requisição na API e cria os elementos na lista de compras
 async function criarProduto() {
   const data = await fetchProducts('computador');
@@ -96,15 +105,6 @@ botaoEsvaziar.addEventListener('click', function () {
   localStorage.clear();
   atualizaPreco();
 });
-
-// Adiciona o Loading ao fazer a requisição
-function loading() {
-  const loadElement = document.createElement('p');
-  const telaItens = document.querySelector('.items')
-  loadElement.className = 'loading';
-  loadElement.innerText = 'carregando...';
-  telaItens.appendChild(loadElement);
-}
 
 // Atualizar a página
 window.onload = () => {
