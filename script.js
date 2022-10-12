@@ -1,3 +1,8 @@
+// Variáveis Globais
+const cartItems = document.querySelector('.cart__items');
+// const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
+
+// Cria a imagem do elemento na lista de compras
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -5,6 +10,7 @@ const createProductImageElement = (imageSource) => {
   return img;
 };
 
+// Cria os elementos na lista de compras
 const createCustomElement = (element, className, innerText) => {
   const e = document.createElement(element);
   e.className = className;
@@ -12,6 +18,7 @@ const createCustomElement = (element, className, innerText) => {
   return e;
 };
 
+// Atualiza o Preço Total no carrinho
  const atualizaPreco = () => {
   const precoTotalParagrafo = document.querySelector('.total-price');
   const carrinhoAtual = getSavedCartItems();
@@ -23,8 +30,7 @@ const createCustomElement = (element, className, innerText) => {
   precoTotalParagrafo.innerHTML = precoTotal;
 };
 
- const cartItems = document.querySelector('.cart__items');
-
+// Cria e adiciona os elementos no Carrinho
  const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -44,6 +50,7 @@ const createCustomElement = (element, className, innerText) => {
   return li;
 };
 
+// Adiciona os elementos do carrinho atual no LocalStorage
 const adicionarItem = (data) => {
   let carrinhoAtual = getSavedCartItems();
   if (!carrinhoAtual) {
@@ -53,6 +60,7 @@ const adicionarItem = (data) => {
   saveCartItems(carrinhoAtual);
 };
 
+//  Cria e adiciona os elementos na lista de compras
 const createProductItemElement = ({ id, title, thumbnail }) => {
   const section = document.createElement('section');
   section.className = 'item';
@@ -68,13 +76,10 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
    adicionarItem(data);
    atualizaPreco();
   });
-
   return section;
 };
 
-// const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
-
-// Requisito 2
+// Faz a requisição na API e cria os elementos na lista de compras
 async function criarProduto() {
   const data = await fetchProducts('computador');
   await data.results.forEach(({ id, title, thumbnail, price }) => {
@@ -83,7 +88,7 @@ async function criarProduto() {
   });
 }
 
-// Requisito 10
+// Adiciona o botão de "Esvaziar Carrinho"
 const botaoEsvaziar = document.querySelector('.empty-cart');
 botaoEsvaziar.addEventListener('click', function () {
   cartItems.innerHTML = '';
@@ -91,9 +96,9 @@ botaoEsvaziar.addEventListener('click', function () {
   atualizaPreco();
 });
 
+// Atualizar a página
 window.onload = () => {
   criarProduto();
-
   if (localStorage.cartItem) {
     const carrinhoAtual = getSavedCartItems();
     console.log(carrinhoAtual);

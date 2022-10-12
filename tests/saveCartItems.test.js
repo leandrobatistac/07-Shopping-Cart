@@ -11,6 +11,6 @@ describe('3 - Teste a função saveCartItems', () => {
 
   it('Verifique se a função localStorage.setItem foi chamada com 2 parametros.', () => {
     saveCartItems('Teste');
-    expect(localStorage.setItem).toHaveBeenCalledWith('cartItem', 'Teste');
+    expect(localStorage.setItem).toHaveBeenCalledWith('cartItem', "\"Teste\"");
   });
 });
