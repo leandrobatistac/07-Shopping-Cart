@@ -23,18 +23,18 @@ const createCustomElement = (element, className, innerText) => {
   const precoTotalParagrafo = document.querySelector('.total-price');
   const carrinhoAtual = getSavedCartItems();
   if (!carrinhoAtual) {
-    precoTotalParagrafo.innerHTML = '';
+    precoTotalParagrafo.innerHTML = 'Carrinho Vazio!';
     return;
   }
   const precoTotal = carrinhoAtual.reduce((prev, cur) => prev + cur.price, 0);
-  precoTotalParagrafo.innerHTML = precoTotal;
+  precoTotalParagrafo.innerHTML = `Preço Total: R$ ${precoTotal.toFixed(2)}`;
 };
 
 // Cria e adiciona os elementos no Carrinho
  const createCartItemElement = ({ id, title, price }) => {
-  const li = document.createElement('li');
+  const li = document.createElement('section');
   li.className = 'cart__item';
-  li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
+  li.innerText = `${title}\n R$ ${price.toFixed(2)}`;
   li.addEventListener('click', (e) => {
     const elementSelect = e.target;
     elementSelect.remove();
@@ -61,14 +61,15 @@ const adicionarItem = (data) => {
 };
 
 //  Cria e adiciona os elementos na lista de compras
-const createProductItemElement = ({ id, title, thumbnail }) => {
+const createProductItemElement = ({ id, title, thumbnail, price }) => {
   const section = document.createElement('section');
   section.className = 'item';
   const botao = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   const id2 = createCustomElement('span', 'item__id', id);
   section.appendChild(id2);
-  section.appendChild(createCustomElement('span', 'item__title', title));
   section.appendChild(createProductImageElement(thumbnail));
+  section.appendChild(createCustomElement('span', 'item__price', `R$ ${price.toFixed(2)}`));
+  section.appendChild(createCustomElement('span', 'item__title', title));
   section.appendChild(botao);
   botao.addEventListener('click', async function () {
    const data = (await fetchItem(id));
